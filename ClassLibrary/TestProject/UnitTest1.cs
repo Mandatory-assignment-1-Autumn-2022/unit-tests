@@ -9,20 +9,17 @@ namespace TestProject
         [TestMethod]
         public void Test_NameValidation_NameIsValid()
         {
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = 20, ShirtNumber = 9};
 
-            player.NameValidation("Erik");
-
-            Assert.AreEqual("Erik", player.Name);
+            player.NameValidation();
         }
 
         [TestMethod]
         public void Test_NameValidation_NameIsNull()
         {
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = null, Age = 20, ShirtNumber = 9 };
 
-
-            Assert.ThrowsException<ArgumentNullException>(() => player.NameValidation(null));
+            Assert.ThrowsException<ArgumentNullException>(() => player.NameValidation());
 
         }
 
@@ -30,41 +27,36 @@ namespace TestProject
         public void Test_NameValidation_NameOneCharacter()
         {
 
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "a", Age = 20, ShirtNumber = 9 };
 
-
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.NameValidation("a"));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.NameValidation());
 
         }
 
         [TestMethod]
         public void Test_AgeValidation_ValidAge()
         {
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = 25, ShirtNumber = 9 };
 
-            player.AgeValidation(25);
-
-            Assert.AreEqual(25, player.Age);
+            player.AgeValidation();
 
         }
 
         [TestMethod]
         public void Test_AgeValidation_NegativeAge()
         {
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = -25, ShirtNumber = 9 };
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.AgeValidation(-2));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.AgeValidation());
 
         }
 
         [TestMethod]
         public void Test_ShirtNumberValidation_ValidShirtNumber()
         {
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = 20, ShirtNumber = 9 };
 
-            player.ShirtNumberValidation(55);
-
-            Assert.AreEqual(55, player.ShirtNumber);
+            player.ShirtNumberValidation();
 
         }
 
@@ -72,10 +64,18 @@ namespace TestProject
         public void Test_ShirtNumberValidation_OutOfRangeNumber()
         {
 
-            FootballPlayer player = new FootballPlayer(1, "Adam", 20, 9);
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = 20, ShirtNumber = 666 };
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ShirtNumberValidation(200));
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => player.ShirtNumberValidation());
 
+        }
+
+        [TestMethod]
+        public void Test_ValidateEverything()
+        {
+            FootballPlayer player = new FootballPlayer() { Id = 1, Name = "Adam", Age = 20, ShirtNumber = 9 };
+
+            player.Validate();
         }
     }
 }
